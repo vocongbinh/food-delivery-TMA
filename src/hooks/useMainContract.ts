@@ -30,8 +30,8 @@ export function useMainContract() {
     async function getValue() {
       if (!mainContract) return;
       setContractData(null);
-      const val = await mainContract.getData();
-      const contractBalance = await mainContract.getBalance();
+      const val = await mainContract!.getData();
+      const contractBalance = await mainContract!.getBalance();
       setContractData({
         counter_value: val.counter,
         recent_sender: val.recent_sender,

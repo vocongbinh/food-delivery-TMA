@@ -7,7 +7,7 @@ import {
   ContractProvider,
   Sender,
   SendMode,
-} from "@ton/core";
+} from "ton-core";
 export type MainContractConfig = {
   counter: number;
   address: Address;
