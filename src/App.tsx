@@ -1,25 +1,25 @@
 import "./App.css";
-// import { RouterProvider } from "react-router-dom";
-// import HomePage from "./pages/home";
-// import OrderPage from "./pages/order";
-// import { createBrowserRouter } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
+import HomePage from "./pages/home";
+import OrderPage from "./pages/order";
+import { createBrowserRouter } from "react-router-dom";
 function App() {
-  // const router = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <HomePage />
-  //   },
-  //   {
-  //     path: "/order",
-  //     element: <OrderPage />
-  //   }
-  // ])
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <HomePage />
+    },
+    {
+      path: "/order",
+      element: <OrderPage />
+    }
+  ], 
+  {
+    basename: "/food-delivery-TMA"
+  }
+)
   return (
-    <>
-    <h1>hii</h1>
-    {/* <RouterProvider router={router} /> */}
-    </>
-   
+    <RouterProvider router={router} />
   );
 }
 
