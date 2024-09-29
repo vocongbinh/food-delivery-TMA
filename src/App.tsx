@@ -3,15 +3,21 @@ import { RouterProvider } from "react-router-dom";
 import HomePage from "./pages/home";
 import OrderPage from "./pages/order";
 import { createBrowserRouter } from "react-router-dom";
+import Layout from "./layout";
 function App() {
   const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <HomePage />
-    },
-    {
-      path: "/order",
-      element: <OrderPage />
+    {path: "/",
+      element: <Layout/>,
+      children: [
+        {
+          path: "/",
+          element: <HomePage />
+        },
+        {
+          path: "/order",
+          element: <OrderPage />
+        }
+      ]
     }
   ], 
   {

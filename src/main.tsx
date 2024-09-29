@@ -3,13 +3,16 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
+import OrdersProvider from "./context/orders-context.tsx";
 
 const manifestUrl =
-  "https://github.com/BinhVo0905/counter_front_end/tonconnect-manifest.json";
+  "https://vocongbinh.github.io/food-delivery-TMA/tonconnect-manifest.json";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <TonConnectUIProvider manifestUrl={manifestUrl}>
-    <App />
+    <OrdersProvider>
+      <App />
+    </OrdersProvider>
   </TonConnectUIProvider>
 
 
