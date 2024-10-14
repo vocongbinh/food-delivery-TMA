@@ -2,15 +2,18 @@
 // import { fromNano } from "ton-core";
 // import { useTonConnect } from '../../hooks/useTonConnect';
 
+import { TonConnectButton } from "@tonconnect/ui-react";
 import CardDish from "../../components/CardDish/CardDish";
 import { useOrdersContext } from "../../context/orders-context";
 import { Dish } from "../../types/dish";
-import dishImg from '../../assets/dish.jpg';
+import { MainButton, BottomBar } from "@twa-dev/sdk/react";
+
 // import { useMainContract } from '../../hooks/useMainContract';
 // import WebApp from '@twa-dev/sdk';
 import { useNavigate } from 'react-router-dom'; 
 const HomePage = () => {
    const navigate = useNavigate();
+   const dishImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbXuD6uM0dMlaQkFm97QtW4wtIebQhm_iCEA&s"
   // const {
   //     contract_address,
   //     counter_value,
@@ -60,14 +63,20 @@ const HomePage = () => {
     navigate('/order');
   }
   return (
-    <div className='h-full relative'>
+    <div className='h-full relative container'>
       <div className="flex flex-col gap-8 py-4">
+        <h2 onClick={() => navigate("/checkout")}>hhihi</h2>
+      <TonConnectButton className='self-end'/>
         <div className="lg:px-6 grid lg:grid-cols-4 grid-cols-3">
           {dishes.map((dish, index) => <CardDish dish={dish} key={index}/>)}
         </div>
       </div>
       {orderItems.length > 0 && <div className="fixed bottom-0 left-0 w-full">
-        <button onClick={handleViewOrder} className="text-base py-4 w-3/4 mx-auto bg-green-400 text-white font-semibold">VIEW ORDER</button>
+        {/* <button onClick={handleViewOrder}>đfsdfsf</button> */}
+
+        <BottomBar>
+          <MainButton text="VIEW ORDER" onClick={handleViewOrder} />
+        </BottomBar>
       </div> } 
     </div>
 

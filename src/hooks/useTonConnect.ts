@@ -6,6 +6,7 @@ export function useTonConnect(): { sender: Sender; connected: boolean } {
   return {
     sender: {
       send: async (args: SenderArguments) => {
+        console.log("haaa");
         tonConnectUI.sendTransaction({
           messages: [
             {

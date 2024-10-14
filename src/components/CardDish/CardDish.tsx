@@ -8,7 +8,8 @@ interface Props {
 
 const CardDish: React.FC<Props> = ({ dish }) => {
   const { orderItems, setOrderItems } = useOrdersContext();
-  const [count, setCount] = useState<number>(0);
+  const initialCount = orderItems.find(item => item.dish.name === dish.name)?.quantity || 0;
+  const [count, setCount] = useState<number>(initialCount);
   const triggerHapticFeedback = useHapticFeedback();
   const isItemExist = () => {
     return orderItems.map(item => item.dish.name).includes(dish.name)
@@ -36,7 +37,7 @@ const CardDish: React.FC<Props> = ({ dish }) => {
     triggerHapticFeedback();
     setCount(prev => prev -= 1);
     setOrderItems((prev) => {
-      return count == 1 ? prev.filter(item => item.dish.name === dish.name)
+      return count == 1 ? prev.filter(item => item.dish.name !== dish.name)
         : prev.map(item => {
           if (item.dish.name === dish.name) {
             return {

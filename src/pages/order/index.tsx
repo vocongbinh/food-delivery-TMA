@@ -1,31 +1,40 @@
 // import React from 'react'
 import { BackButton } from '@twa-dev/sdk/react';
 import { useOrdersContext } from '../../context/orders-context';
-import { useTonConnect } from '../../hooks/useTonConnect';
-import WebApp from '@twa-dev/sdk';
-import { Address, toNano } from 'ton-core';
+import { MainButton, BottomBar } from "@twa-dev/sdk/react";
+import { useNavigate } from 'react-router-dom';
+
 const OrderPage = () => {
+  const navigate = useNavigate();
   const { orderItems } = useOrdersContext();
   const total = orderItems.reduce((total, item) => total + item.dish.price * item.quantity, 0)
-  const {connected, sender} = useTonConnect()
+  const handleOrder = async () => {
+    navigate('/checkout');
+    // if (!connected) {
+    //   WebApp.showAlert("Please connect to your wallet!")
+    //   return;
+    // }
+    // sender.send({
+    //   value: toNano(total),
+    //   to: Address.parse("0QD0uqZiQwMt2SfZo5OPo5xxr5yJRaZICJg4dKMi3DKTyfne")
+    // })
 
-  const handleOrder = () => {
-    if(!connected) {
-      WebApp.showAlert("Please connect to your wallet!")
-      return;
-    }
-    sender.send({
-      value: toNano(total) ,
-      to: Address.parse("0QD0uqZiQwMt2SfZo5OPo5xxr5yJRaZICJg4dKMi3DKTyfne")
-    })
+    // const data: MetaData = {
+    //   image: orderItems[0].dish.imageUrl,
+    //   orderItems
+    // }
+    // console.log(data)
+    // await deployNFT(data)
 
+  
   }
+
   return (
     <>
       <BackButton onClick={() => window.history.back()} />
-      <div className='w-full h-screen bg-gray-100'>
-        <div className='flex flex-col relative border-b bg-white border-[#ccc] px-8'>
-          <div className='flex w-full justify-between items-center py-6'>
+      <div className='w-full h-screen container flex flex-col gap-8 bg-gray-100 py-4'>
+        <div className='flex flex-col relative bg-white  px-8 rounded-2xl'>
+          <div className='flex w-full justify-between border-b border-[#ccc] items-center py-4 mb-4'>
             <span className='text-base font-bold'>YOUR ORDER</span>
             <span className='text-base text-green-500'>Edit</span>
           </div>
@@ -36,22 +45,24 @@ const OrderPage = () => {
                 <img src={item.dish.imageUrl} alt='' className='w-12 h-12 rounded-xl' />
                 <div className='flex flex-col gap-0  items-start'>
                   <span className='font-bold'>{item.dish.name} <span className='text-yellow-500 font-bold'>{item.quantity}x</span></span>
-                  <span className='text-gray-300 text-sm'>{item.dish.description}</span>
                 </div>
 
               </div>
               <span>${item.dish.price * item.quantity}</span>
             </div>
-
+           
           )}
+          
+          
         </div>
-        <div className="fixed bottom-10 left-0 w-full">
-          <button onClick={handleOrder} className="text-lg py-4 w-3/4 mx-auto bg-green-400 text-white font-semibold">PAY ${total} </button>
-        </div>
+        {/* <Section header="Payment Information" /> */}
+        {/* <button onClick={handleOrder}>đfsdfsf</button> */}
+        <BottomBar>
+          <MainButton text={`PAY $${total}` } onClick={handleOrder} />
+        </BottomBar>
       </div>
 
     </>
-
   )
 }
 

@@ -3,22 +3,23 @@ import { RouterProvider } from "react-router-dom";
 import HomePage from "./pages/home";
 import OrderPage from "./pages/order";
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "./layout";
+import CheckoutPage from "./pages/checkout";
+
+// import Layout from "./layout";
 function App() {
   const router = createBrowserRouter([
-    {path: "/",
-      element: <Layout/>,
-      children: [
-        {
-          path: "/",
-          element: <HomePage />
-        },
-        {
-          path: "/order",
-          element: <OrderPage />
-        }
-      ]
-    }
+    {
+      path: "/",
+      element: <HomePage />
+    },
+    {
+      path: "/order",
+      element: <OrderPage />
+    },
+    {
+      path: "/checkout",
+      element: <CheckoutPage />
+    },
   ], 
   {
     basename: "/food-delivery-TMA"

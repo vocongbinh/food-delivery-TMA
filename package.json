@@ -12,12 +12,15 @@
   "dependencies": {
     "@orbs-network/ton-access": "^2.3.3",
     "@pinata/sdk": "^2.1.0",
+    "@telegram-apps/telegram-ui": "^2.1.8",
     "@ton/core": "^0.56.3",
     "@ton/crypto": "^3.2.0",
     "@tonconnect/ui-react": "^2.0.6",
+    "@twa-dev/mark42": "^0.0.38",
     "@twa-dev/sdk": "^7.10.1",
     "buffer": "^6.0.3",
     "dotenv": "^16.4.5",
+    "formik": "^2.4.6",
     "fs": "^0.0.1-security",
     "iconsax-react": "^0.0.8",
     "pinata-web3": "^0.4.1",
@@ -29,7 +32,8 @@
     "ton-core": "^0.53.0",
     "ton-crypto": "^3.2.0",
     "tonweb": "^0.0.66",
-    "vite-plugin-node-polyfills": "^0.22.0"
+    "vite-plugin-node-polyfills": "^0.22.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@swc/core": "^1.7.26",
@@ -40,6 +44,7 @@
     "@typescript-eslint/parser": "^7.13.1",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
+    "axios": "^1.7.7",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
