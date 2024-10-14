@@ -65,7 +65,7 @@ const HomePage = () => {
   return (
     <div className='h-full relative container'>
       <div className="flex flex-col gap-8 py-4">
-        <h2 onClick={() => navigate("/checkout")}>hhihi</h2>
+        {/* <h2 onClick={() => navigate("/checkout")}>hhihi</h2> */}
       <TonConnectButton className='self-end'/>
         <div className="lg:px-6 grid lg:grid-cols-4 grid-cols-3">
           {dishes.map((dish, index) => <CardDish dish={dish} key={index}/>)}
