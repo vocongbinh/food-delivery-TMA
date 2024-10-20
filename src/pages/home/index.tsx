@@ -11,6 +11,8 @@ import { MainButton, BottomBar } from "@twa-dev/sdk/react";
 // import { useMainContract } from '../../hooks/useMainContract';
 // import WebApp from '@twa-dev/sdk';
 import { useNavigate } from 'react-router-dom'; 
+// import { useTonConnect } from "../../hooks/useTonConnect";
+// import { prepareJettonTransfer } from "../../contracts/Jetton";
 const HomePage = () => {
    const navigate = useNavigate();
    const dishImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbXuD6uM0dMlaQkFm97QtW4wtIebQhm_iCEA&s"
@@ -58,6 +60,7 @@ const HomePage = () => {
     },
   ]
   const {orderItems} = useOrdersContext();
+  // const {sender} = useTonConnect();
   const handleViewOrder = () => {
     console.log(orderItems);
     navigate('/order');
@@ -65,7 +68,12 @@ const HomePage = () => {
   return (
     <div className='h-full relative container'>
       <div className="flex flex-col gap-8 py-4">
-        {/* <h2 onClick={() => navigate("/checkout")}>hhihi</h2> */}
+        {/* <h2 onClick={() => {
+          console.log("haha")
+          const message = prepareJettonTransfer("EQBjQKLSlsfmpTou3c20a1-lL4H5rG6d2_ybIR_HyCMJsIdA","0QAY0-nximDrQIdBrH4r8RpJz9WtVANal49taOGX6u5LHXIH", 1 )
+         sender.send(message)
+        }
+      }>hhihi</h2> */}
       <TonConnectButton className='self-end'/>
         <div className="lg:px-6 grid lg:grid-cols-4 grid-cols-3">
           {dishes.map((dish, index) => <CardDish dish={dish} key={index}/>)}

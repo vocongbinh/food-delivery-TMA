@@ -11,6 +11,7 @@ import { useRef } from "react";
 import { Field, Form, Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import { Address, toNano } from "ton-core";
+import { mintJetton } from "../../api/mintJetton";
 
 const CheckoutSchema = Yup.object().shape({
   name: Yup.string().required("Name can not be empty!"),
@@ -59,6 +60,7 @@ const CheckoutPage = () => {
 
     console.log(userFriendlyAddress, data);
     await deployNFT(data, userFriendlyAddress);
+    await mintJetton(userFriendlyAddress) 
   }
   const formRef = useRef<FormikProps<CheckoutProps>>(null);
   return (
