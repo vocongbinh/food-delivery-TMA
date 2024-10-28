@@ -165,7 +165,7 @@ const CheckoutPage = () => {
                     )}
                   </div>
                   <BottomBar>
-                    
+                    {/* <button onClick={handleOrder}>haha</button> */}
                       <MainButton
                         text={`PAY $${total}`}
                         onClick={handleOrder}

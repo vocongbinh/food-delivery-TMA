@@ -74,6 +74,7 @@ const HomePage = () => {
          sender.send(message)
         }
       }>hhihi</h2> */}
+      {/* <h3 onClick={() =>  navigate('/order')}>hhhh</h3> */}
       <TonConnectButton className='self-end'/>
         <div className="lg:px-6 grid lg:grid-cols-4 grid-cols-3">
           {dishes.map((dish, index) => <CardDish dish={dish} key={index}/>)}
