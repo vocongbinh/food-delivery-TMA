@@ -81,7 +81,7 @@ const HomePage = () => {
         </div>
       </div>
       {orderItems.length > 0 && <div className="fixed bottom-0 left-0 w-full">
-        {/* <button onClick={handleViewOrder}>đfsdfsf</button> */}
+        <button onClick={handleViewOrder}>đfsdfsf</button>
 
         <BottomBar>
           <MainButton text="VIEW ORDER" onClick={handleViewOrder} />
