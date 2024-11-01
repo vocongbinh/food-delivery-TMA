@@ -9,9 +9,10 @@ export type MetaData = Omit<Order, "id"> & {
 
 export async function mintJetton(address: string) {
   try {
-    console.log("jetton")
+    console.log(address)
     await ContractInstance.post(`send-jetton/${address}`);
   } catch (e) {
+    console.log(e)
     throw new Error("Can not make a transaction!");
   }
 }

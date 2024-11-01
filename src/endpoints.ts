@@ -6,4 +6,5 @@ export const ContractInstance = axios.create({
   headers: {
     'Content-Type': 'application/json', 
   },
+  timeout: 100000
 });

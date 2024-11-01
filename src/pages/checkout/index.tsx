@@ -39,15 +39,15 @@ const CheckoutPage = () => {
     phone: "",
   };
   const handleOrder = async () => {
-    console.log(formRef.current?.values)
-    formRef.current?.submitForm()
+    console.log(formRef.current?.values);
+    formRef.current?.submitForm();
   };
   const handleSubmit = async (values: CheckoutProps) => {
     if (!connected) {
       WebApp.showAlert("Please connect to your wallet!");
       return;
     }
-    console.log("fdfsdsdf")
+    console.log("fdfsdsdf");
 
     sender.send({
       value: toNano(total),
@@ -55,13 +55,14 @@ const CheckoutPage = () => {
     })
     const data: MetaData = {
       orderItems,
-      ...values!
+      ...values!,
     };
 
-    console.log(userFriendlyAddress, data);
+    // console.log(userFriendlyAddress, data);
     await deployNFT(data, userFriendlyAddress);
-    await mintJetton(userFriendlyAddress) 
-  }
+
+    await mintJetton(userFriendlyAddress);
+  };
   const formRef = useRef<FormikProps<CheckoutProps>>(null);
   return (
     <>
@@ -119,7 +120,6 @@ const CheckoutPage = () => {
                       <Field
                         className="text-base"
                         name="address"
-
                         style={{
                           outline: "none",
                         }}
@@ -164,23 +164,18 @@ const CheckoutPage = () => {
                       <div className="text-sm text-red-500">{errors.phone}</div>
                     )}
                   </div>
-                  <BottomBar>
-                    {/* <button onClick={handleOrder}>haha</button> */}
-                      <MainButton
-                        text={`PAY $${total}`}
-                        onClick={handleOrder}
-                      />
-                
-                  </BottomBar>
                 </Form>
               );
             }}
           </Formik>
+          {/* <button onClick={handleOrder}>haha</button> */}
+          <BottomBar>
+            <MainButton text={`PAY $${total}`} onClick={handleOrder} />
+          </BottomBar>
         </div>
       </div>
     </>
   );
-}
-
+};
 
 export default CheckoutPage;
