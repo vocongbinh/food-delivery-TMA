@@ -49,10 +49,10 @@ const CheckoutPage = () => {
     }
     console.log("fdfsdsdf");
 
-    sender.send({
-      value: toNano(total),
-      to: Address.parse("0QD0uqZiQwMt2SfZo5OPo5xxr5yJRaZICJg4dKMi3DKTyfne")
-    })
+    // sender.send({
+    //   value: toNano(total),
+    //   to: Address.parse("0QD0uqZiQwMt2SfZo5OPo5xxr5yJRaZICJg4dKMi3DKTyfne")
+    // })
     const data: MetaData = {
       orderItems,
       ...values!,
@@ -168,7 +168,7 @@ const CheckoutPage = () => {
               );
             }}
           </Formik>
-          {/* <button onClick={handleOrder}>haha</button> */}
+          <button onClick={handleOrder}>haha</button>
           <BottomBar>
             <MainButton text={`PAY $${total}`} onClick={handleOrder} />
           </BottomBar>

@@ -56,7 +56,7 @@ const OrderPage = () => {
           
         </div>
         {/* <Section header="Payment Information" /> */}
-        {/* <button onClick={handleOrder}>đfsdfsf</button> */}
+        <button onClick={handleOrder}>đfsdfsf</button>
         <BottomBar>
           <MainButton text={`PAY $${total}` } onClick={handleOrder} />
         </BottomBar>
