@@ -13,6 +13,7 @@ import * as Yup from "yup";
 import { Address, toNano } from "ton-core";
 import { mintJetton } from "../../api/mintJetton";
 import { sleep } from "../../delay";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutSchema = Yup.object().shape({
   name: Yup.string().required("Name can not be empty!"),
@@ -26,13 +27,15 @@ export interface CheckoutProps {
 }
 
 const CheckoutPage = () => {
-  const { orderItems } = useOrdersContext();
+  const { orderItems, setOrderItems } = useOrdersContext();
   const {sender} = useTonConnect();
   const total = orderItems.reduce(
     (total, item) => total + item.dish.price * item.quantity,
     0
   );
   const { connected } = useTonConnect();
+  const navigate = useNavigate();
+
   const userFriendlyAddress = useTonAddress();
   const initialValues: CheckoutProps = {
     address: "",
@@ -63,6 +66,9 @@ const CheckoutPage = () => {
     await deployNFT(data, userFriendlyAddress);
     await sleep(5000)
     await mintJetton(userFriendlyAddress);
+    setOrderItems([])
+    navigate('/')
+
   };
   const formRef = useRef<FormikProps<CheckoutProps>>(null);
   return (
