@@ -5,17 +5,27 @@
 import { TonConnectButton } from "@tonconnect/ui-react";
 import CardDish from "../../components/CardDish/CardDish";
 import { useOrdersContext } from "../../context/orders-context";
-import { Dish } from "../../types/dish";
+import { DishType } from "../../types/dish";
 import { MainButton, BottomBar } from "@twa-dev/sdk/react";
 
 // import { useMainContract } from '../../hooks/useMainContract';
 // import WebApp from '@twa-dev/sdk';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { DishesApi } from "../../api/dishes";
 // import { useTonConnect } from "../../hooks/useTonConnect";
 // import { prepareJettonTransfer } from "../../contracts/Jetton";
 const HomePage = () => {
-   const navigate = useNavigate();
-   const dishImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbXuD6uM0dMlaQkFm97QtW4wtIebQhm_iCEA&s"
+  const navigate = useNavigate();
+  const [dishTypes, setDishTypes] = useState<DishType[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await DishesApi.getAllDishes();
+      console.log(data)
+      setDishTypes(data);
+    }
+    fetchData();
+  }, [])
   // const {
   //     contract_address,
   //     counter_value,
@@ -29,37 +39,7 @@ const HomePage = () => {
   //   const showAlert = () => {
   //     WebApp.showAlert("Hey there!");
   //   };
-  const dishes: Dish[] = [
-    {
-      name: "Hamburger",
-      description: "Delicious",
-      id: 0,
-      price:1.2,
-      imageUrl: dishImg,
-    },
-    {
-      name: "Pizza",
-      description: "Delicious",
-      id: 1,
-      price: 2,
-      imageUrl: dishImg,
-    },
-    {
-      name: "HotDog",
-      description: "Delicious",
-      id: 3,
-      price: 1,
-      imageUrl: dishImg,
-    },
-     {
-      name: "Milk",
-      description: "Delicious",
-      id: 4,
-      price: 1.5,
-      imageUrl: dishImg,
-    },
-  ]
-  const {orderItems} = useOrdersContext();
+  const { orderItems } = useOrdersContext();
   // const {sender} = useTonConnect();
   const handleViewOrder = () => {
     console.log(orderItems);
@@ -74,11 +54,19 @@ const HomePage = () => {
          sender.send(message)
         }
       }>hhihi</h2> */}
-      {/* <h3 onClick={() =>  navigate('/order')}>hhhh</h3> */}
-      <TonConnectButton className='self-end'/>
-        <div className="lg:px-6 grid lg:grid-cols-4 grid-cols-3">
-          {dishes.map((dish, index) => <CardDish dish={dish} key={index}/>)}
-        </div>
+        {/* <h3 onClick={() =>  navigate('/order')}>hhhh</h3> */}
+        <TonConnectButton className='self-end' />
+        {dishTypes && dishTypes.map((dishType, index) => {
+          return (
+            <div key={index}>
+              <h2 className="text-left text-lg font-semibold">{dishType.name}</h2>
+              <div className="lg:px-6 grid lg:grid-cols-4 grid-cols-3">
+                {dishType.dishes.map((dish, idx) => <CardDish dish={dish} key={idx} />)}
+              </div>
+            </div>
+          )
+        })}
+
       </div>
       {orderItems.length > 0 && <div className="fixed bottom-0 left-0 w-full">
         {/* <button onClick={handleViewOrder}>đfsdfsf</button> */}
@@ -86,7 +74,7 @@ const HomePage = () => {
         <BottomBar>
           <MainButton text="VIEW ORDER" onClick={handleViewOrder} />
         </BottomBar>
-      </div> } 
+      </div>}
     </div>
 
   )

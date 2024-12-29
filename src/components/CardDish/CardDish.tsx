@@ -57,7 +57,7 @@ const CardDish: React.FC<Props> = ({ dish }) => {
   return (
     <div className='flex flex-col gap-2 p-2 items-center'>
       <div className='relative'>
-        <img src={dish.imageUrl} alt="" className='rounded-2xl' />
+        <img src={dish.imageUrl.split(", ")[0]} alt="" className='rounded-2xl w-full h-[240px] object-cover' />
         {count > 0 && <div className='rounded-full font-bold absolute top-0 flex items-center justify-center
          translate-x-1/2 -translate-y-1/2 right-0 w-8 h-8 text-white bg-yellow-500'>{count}</div>}
       </div>

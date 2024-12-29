@@ -19,3 +19,9 @@ export enum DishStatus {
     INACTIVE = 'INACTIVE',
     CREATED = 'CREATED'
 }
+
+export interface DishType {
+    id: number;
+    name: string;
+    dishes: Dish[];
+  }
