@@ -53,7 +53,7 @@ const HomePage = () => {
         arr.push(<DishLoadingPlaceholder key={i} Imgstyle={{ width: '100%', aspectRatio: "1/1" }} inputStyle={{ width: '100%' }} />);
         i++;
     }
-    return <div className="grid gap-6 sm:grid-cols-2 sm:py-2 md:gap-8 md:grid-cols-3 lg:grid-cols-3 xl:md:grid-cols-4">{arr}</div>
+    return <div className="grid gap-6 grid-cols-3">{arr}</div>
 }
   return (
     <div className='h-full relative container'>
