@@ -40,11 +40,12 @@ const OrderPage = () => {
           </div>
           {orderItems.map((item, index) =>
 
-            <div key={index} className='flex items-start justify-between mb-2'>
+            <div key={index} className='flex items-start gap-4 justify-between mb-2'>
               <div className='flex gap-2'>
-                <img src={item.dish.imageUrl} alt='' className='w-12 h-12 rounded-xl' />
-                <div className='flex flex-col gap-0  items-start'>
-                  <span className='font-bold'>{item.dish.name} <span className='text-yellow-500 font-bold'>{item.quantity}x</span></span>
+                <img src={item.dish.imageUrl.split(", ")[0]} alt='' className='w-12 h-12 rounded-xl' />
+                <div className='flex flex-col gap-0 items-start'>
+                  <h2 className='font-bold text-left'>{item.dish.name}</h2>
+                  <span className='text-yellow-500 font-bold'>{item.quantity}x</span>
                 </div>
 
               </div>
