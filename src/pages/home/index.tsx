@@ -11,8 +11,9 @@ import { MainButton, BottomBar } from "@twa-dev/sdk/react";
 // import { useMainContract } from '../../hooks/useMainContract';
 // import WebApp from '@twa-dev/sdk';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { DishesApi } from "../../api/dishes";
+import DishLoadingPlaceholder from "../../components/DishLoadingPlaceHolder/DishLoadingPlaceHolder";
 // import { useTonConnect } from "../../hooks/useTonConnect";
 // import { prepareJettonTransfer } from "../../contracts/Jetton";
 const HomePage = () => {
@@ -45,6 +46,15 @@ const HomePage = () => {
     console.log(orderItems);
     navigate('/order');
   }
+  const renderPlaceHolder = () => {
+    let i = 0;
+    const arr: ReactNode[] = [];
+    while (i < 12) {
+        arr.push(<DishLoadingPlaceholder key={i} Imgstyle={{ width: '100%', aspectRatio: "1/1" }} inputStyle={{ width: '100%' }} />);
+        i++;
+    }
+    return <div className="grid gap-6 sm:grid-cols-2 sm:py-2 md:gap-8 md:grid-cols-3 lg:grid-cols-3 xl:md:grid-cols-4">{arr}</div>
+}
   return (
     <div className='h-full relative container'>
       <div className="flex flex-col gap-8 py-4">
@@ -56,7 +66,7 @@ const HomePage = () => {
       }>hhihi</h2> */}
         {/* <h3 onClick={() =>  navigate('/order')}>hhhh</h3> */}
         <TonConnectButton className='self-end' />
-        {dishTypes && dishTypes.map((dishType, index) => {
+        {dishTypes.length  > 0 ? dishTypes.map((dishType, index) => {
           return (
             <div key={index}>
               <h2 className="text-left text-lg font-semibold">{dishType.name}</h2>
@@ -65,7 +75,7 @@ const HomePage = () => {
               </div>
             </div>
           )
-        })}
+        }): renderPlaceHolder() }
 
       </div>
       {orderItems.length > 0 && <div className="fixed bottom-0 left-0 w-full">
