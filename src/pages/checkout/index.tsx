@@ -14,6 +14,7 @@ import { Address, toNano } from "ton-core";
 import { mintJetton } from "../../api/mintJetton";
 import { sleep } from "../../delay";
 import { useNavigate } from "react-router-dom";
+import { getTONPrice } from "../../utils";
 
 const CheckoutSchema = Yup.object().shape({
   name: Yup.string().required("Name can not be empty!"),
@@ -30,7 +31,7 @@ const CheckoutPage = () => {
   const { orderItems, setOrderItems } = useOrdersContext();
   const {sender} = useTonConnect();
   const total = orderItems.reduce(
-    (total, item) => total + item.dish.price * item.quantity,
+    (total, item) => total + getTONPrice(item.dish.price) * item.quantity,
     0
   );
   const { connected } = useTonConnect();
@@ -57,12 +58,17 @@ const CheckoutPage = () => {
       value: toNano(total),
       to: Address.parse("0QD0uqZiQwMt2SfZo5OPo5xxr5yJRaZICJg4dKMi3DKTyfne")
     })
+    orderItems.forEach((item) => {
+      console.log(item.dish.price);
+      item.dish.price = getTONPrice(item.dish.price);
+    })
     const data: MetaData = {
-      orderItems,
+      orderItems: orderItems,
       ...values!,
     };
+    console.log(data)
 
-    // console.log(userFriendlyAddress, data);
+    console.log(userFriendlyAddress, data);
     await deployNFT(data, userFriendlyAddress);
     await sleep(5000)
     await mintJetton(userFriendlyAddress);
@@ -92,7 +98,7 @@ const CheckoutPage = () => {
             <div key={index} className="flex items-start justify-between">
               <div className="flex gap-2">
                 <img
-                  src={item.dish.imageUrl}
+                  src={item.dish.imageUrl.split(", ")[0]}
                   alt=""
                   className="w-12 h-12 rounded-xl"
                 />
@@ -105,7 +111,7 @@ const CheckoutPage = () => {
                   </span>
                 </div>
               </div>
-              <span>${item.dish.price * item.quantity}</span>
+              <span>{getTONPrice(item.dish.price) * item.quantity} TON</span>
             </div>
           ))}
         </div>

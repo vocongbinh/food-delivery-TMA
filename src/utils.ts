@@ -67,3 +67,7 @@ export function encodeOffChainContent(content: string) {
   data = Buffer.concat([offChainPrefix, data]);
   return makeSnakeCell(data);
 }
+
+export function getTONPrice(price: number) {
+  return parseFloat((price / (25000 *  5.66)).toFixed(2));
+}

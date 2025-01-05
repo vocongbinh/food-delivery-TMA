@@ -3,11 +3,12 @@ import { BackButton } from '@twa-dev/sdk/react';
 import { useOrdersContext } from '../../context/orders-context';
 import { MainButton, BottomBar } from "@twa-dev/sdk/react";
 import { useNavigate } from 'react-router-dom';
+import { getTONPrice } from '../../utils';
 
 const OrderPage = () => {
   const navigate = useNavigate();
   const { orderItems } = useOrdersContext();
-  const total = orderItems.reduce((total, item) => total + item.dish.price * item.quantity, 0)
+  const total = orderItems.reduce((total, item) => total + getTONPrice(item.dish.price) * item.quantity, 0)
   const handleOrder = async () => {
     navigate('/checkout');
     // if (!connected) {
@@ -49,7 +50,7 @@ const OrderPage = () => {
                 </div>
 
               </div>
-              <span>${item.dish.price * item.quantity}</span>
+              <span>{getTONPrice(item.dish.price) * item.quantity} TON</span>
             </div>
            
           )}

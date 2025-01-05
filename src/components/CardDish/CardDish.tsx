@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHapticFeedback } from '../../hooks/useHapticFeedback';
 import { Dish } from '../../types/dish';
 import { useOrdersContext } from '../../context/orders-context';
+import { getTONPrice } from '../../utils';
 interface Props {
   dish: Dish
 }
@@ -61,7 +62,7 @@ const CardDish: React.FC<Props> = ({ dish }) => {
         {count > 0 && <div className='rounded-full font-bold absolute top-0 flex items-center justify-center
          translate-x-1/2 -translate-y-1/2 right-0 w-8 h-8 text-white bg-yellow-500'>{count}</div>}
       </div>
-      <span className='lg:text-base text-sm line-clamp-2'>{dish.name}<br></br><span className='font-semibold text-base lg:text-xl'>${dish.price}</span></span>
+      <span className='lg:text-base text-sm line-clamp-2'>{dish.name}<br></br><span className='font-semibold text-base lg:text-xl'>{getTONPrice(dish.price)} TON</span></span>
 
       {count > 0 ? <div className='w-full justify-between gap-2 flex'>
         <button className='bg-red-500 flex-1 py-2 flex justify-center items-center text-white font-extrabold' onClick={handleRemove}>
