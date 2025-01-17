@@ -1,8 +1,10 @@
 import { KeyPair, mnemonicToPrivateKey } from "ton-crypto";
 import {
+  Address,
   beginCell,
   Cell,
   OpenedContract,
+  SenderArguments,
   TonClient,
   WalletContractV4,
 } from "ton";
@@ -24,7 +26,7 @@ export async function openWallet(mnenonics: string[]) {
     workchain: 0
   })
   const contract = client.open(wallet);
-  return {contract, keyPair}
+  return { contract, keyPair }
 }
 function bufferToChunks(buff: Buffer, chunkSize: number) {
   const chunks: Buffer[] = [];
@@ -69,5 +71,31 @@ export function encodeOffChainContent(content: string) {
 }
 
 export function getTONPrice(price: number) {
-  return parseFloat((price / (25000 *  5.66)).toFixed(2));
+  return parseFloat((price / (25000 * 5.66)).toFixed(2));
+}
+
+export function generateOrderId() {
+  const timestamp = Date.now(); // Lấy thời gian hiện tại
+  const random = Math.floor(Math.random() * 1000); // Số ngẫu nhiên
+  return `ORD-${timestamp}-${random}`; // Kết hợp
+}
+
+export function prepareCreateOrderContractTransfer(contractAddress: string, opts: {
+  owner: Address;
+  value: bigint;
+}) {
+  const address = Address.parse(contractAddress);
+  // Prepare Jetton transfer message
+  const transferBody = beginCell()
+    .storeUint(4, 32)
+    .storeAddress(opts.owner)
+    .endCell()
+  const message: SenderArguments = {
+    to: address,
+    value: opts.value,
+    body: transferBody,
+
+  };
+  return message;
+
 }

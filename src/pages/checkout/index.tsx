@@ -14,7 +14,8 @@ import { Address, toNano } from "ton-core";
 import { mintJetton } from "../../api/mintJetton";
 import { sleep } from "../../delay";
 import { useNavigate } from "react-router-dom";
-import { getTONPrice } from "../../utils";
+import { getTONPrice, prepareCreateOrderContractTransfer } from "../../utils";
+import { OrdersApi } from "../../api/orders";
 
 const CheckoutSchema = Yup.object().shape({
   name: Yup.string().required("Name can not be empty!"),
@@ -29,7 +30,7 @@ export interface CheckoutProps {
 
 const CheckoutPage = () => {
   const { orderItems, setOrderItems } = useOrdersContext();
-  const {sender} = useTonConnect();
+  const { sender } = useTonConnect();
   const total = orderItems.reduce(
     (total, item) => total + getTONPrice(item.dish.price) * item.quantity,
     0
@@ -52,12 +53,6 @@ const CheckoutPage = () => {
       WebApp.showAlert("Please connect to your wallet!");
       return;
     }
-    console.log("fdfsdsdf");
-
-    sender.send({
-      value: toNano(total),
-      to: Address.parse("0QD0uqZiQwMt2SfZo5OPo5xxr5yJRaZICJg4dKMi3DKTyfne")
-    })
     orderItems.forEach((item) => {
       console.log(item.dish.price);
       item.dish.price = getTONPrice(item.dish.price);
@@ -69,7 +64,21 @@ const CheckoutPage = () => {
     console.log(data)
 
     console.log(userFriendlyAddress, data);
-    await deployNFT(data, userFriendlyAddress);
+    const ownerAddress = "0QDREisYb3hWcNevBoAopiS2UubbDp174WF0_v2XSZd9gcwL"
+    const { contract_address, order_id } = await OrdersApi.deployOrderContract({
+      owner: ownerAddress,
+      customer: userFriendlyAddress,
+      name: data.orderItems[0].dish.name,
+      image: data.orderItems[0].dish.imageUrl.split(", ")[0],
+      quantity: data.orderItems[0].quantity,
+      price: toNano(total),
+    });
+    const message = prepareCreateOrderContractTransfer(contract_address, {
+      owner: Address.parse(ownerAddress),
+      value: toNano(total)
+    })
+    await sender.send(message);
+    await deployNFT(data, userFriendlyAddress, order_id);
     await sleep(5000)
     await mintJetton(userFriendlyAddress);
     setOrderItems([])
@@ -181,7 +190,7 @@ const CheckoutPage = () => {
               );
             }}
           </Formik>
-          {/* <button onClick={handleOrder}>haha</button> */}
+          <button onClick={handleOrder}>haha</button>
           <BottomBar>
             <MainButton text={`PAY $${total}`} onClick={handleOrder} />
           </BottomBar>

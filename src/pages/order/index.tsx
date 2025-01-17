@@ -8,6 +8,7 @@ import { getTONPrice } from '../../utils';
 const OrderPage = () => {
   const navigate = useNavigate();
   const { orderItems } = useOrdersContext();
+  console.log(orderItems)
   const total = orderItems.reduce((total, item) => total + getTONPrice(item.dish.price) * item.quantity, 0)
   const handleOrder = async () => {
     navigate('/checkout');
@@ -58,7 +59,7 @@ const OrderPage = () => {
           
         </div>
         {/* <Section header="Payment Information" /> */}
-        {/* <button onClick={handleOrder}>đfsdfsf</button> */}
+        <button onClick={handleOrder}>đfsdfsf</button>
         <BottomBar>
           <MainButton text={`PAY $${total}` } onClick={handleOrder} />
         </BottomBar>
