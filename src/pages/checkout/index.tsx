@@ -190,7 +190,7 @@ const CheckoutPage = () => {
               );
             }}
           </Formik>
-          <button onClick={handleOrder}>haha</button>
+          {/* <button onClick={handleOrder}>haha</button> */}
           <BottomBar>
             <MainButton text={`PAY $${total}`} onClick={handleOrder} />
           </BottomBar>

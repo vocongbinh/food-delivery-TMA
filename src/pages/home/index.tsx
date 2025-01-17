@@ -50,7 +50,7 @@ const HomePage = () => {
     let i = 0;
     const arr: ReactNode[] = [];
     while (i < 12) {
-        arr.push(<DishLoadingPlaceholder key={i} Imgstyle={{ width: '100%', aspectRatio: "1/1" }} inputStyle={{ width: '100%' }} />);
+        arr.push(<DishLoadingPlaceholder key={i} Imgstyle={{ width: '100%', aspectRatio: "1/1" }}/>);
         i++;
     }
     return <div className="grid gap-6 grid-cols-3">{arr}</div>
@@ -79,7 +79,7 @@ const HomePage = () => {
 
       </div>
       {orderItems.length > 0 && <div className="fixed bottom-0 left-0 w-full">
-        <button onClick={handleViewOrder}>đfsdfsf</button>   
+        {/* <button onClick={handleViewOrder}>đfsdfsf</button>    */}
 
         <BottomBar>
           <MainButton text="VIEW ORDER" onClick={handleViewOrder} />
