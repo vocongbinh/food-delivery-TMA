@@ -11,7 +11,7 @@ import { useRef } from "react";
 import { Field, Form, Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import { Address, toNano } from "ton-core";
-import { mintJetton } from "../../api/mintJetton";
+// import { mintJetton } from "../../api/mintJetton";
 import { sleep } from "../../delay";
 import { useNavigate } from "react-router-dom";
 import { getTONPrice, prepareCreateOrderContractTransfer } from "../../utils";
@@ -73,14 +73,16 @@ const CheckoutPage = () => {
       quantity: data.orderItems[0].quantity,
       price: toNano(total),
     });
+    console.log(contract_address, order_id)
     const message = prepareCreateOrderContractTransfer(contract_address, {
       owner: Address.parse(ownerAddress),
       value: toNano(total)
     })
     await sender.send(message);
+    await sleep(3000)
     await deployNFT(data, userFriendlyAddress, order_id);
-    await sleep(5000)
-    await mintJetton(userFriendlyAddress);
+    // await sleep(3000)
+    // await mintJetton(userFriendlyAddress);
     setOrderItems([])
     navigate('/')
 
